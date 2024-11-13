@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class WeatherManager
+public class WeatherManager : MonoBehaviour
 {
-
-    private const string xmlApi = "http://api.openweathermap.org/data/2.5/weather?q=Orlando,us&mode=xml&appid=APIKEY";
+    public string City;
+    private string xmlApi = "https://api.openweathermap.org/data/2.5/weather?q=Orlando,us&mode=xml&appid=ce08e47134ca4d6c289ee7ab9d9c31e5";
 
     private IEnumerator CallAPI(string url, Action<string> callback)
     {
@@ -33,5 +33,14 @@ public class WeatherManager
     {
         return CallAPI(xmlApi, callback);
     }
-
+    public void Start()
+    {
+        string test  = ("https://api.openweathermap.org/data/2.5/weather?q=" + City + ",us&mode=xml&appid=ce08e47134ca4d6c289ee7ab9d9c31e5");
+        xmlApi = test;
+        StartCoroutine(GetWeatherXML(OnXMLDataLoaded));
+    }
+    public void OnXMLDataLoaded(string data)
+    {
+        Debug.Log(data);
+    }
 }

@@ -318,6 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1188208226}
   - component: {fileID: 1188208227}
+  - component: {fileID: 1188208228}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -353,6 +354,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   City: New York
+--- !u!114 &1188208228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188208225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77d03098325e8a34c90555ead548d90a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Morning: {fileID: 2100000, guid: 7c86d4abbd33b564b9e773aceadb8572, type: 2}
+  Noon: {fileID: 2100000, guid: 9ca22510633fbfd4399f1704cd9d5c72, type: 2}
+  Evening: {fileID: 2100000, guid: 44d0573bf6d91e447b62f3aff840f2ae, type: 2}
+  Night: {fileID: 2100000, guid: d1fdb8e44b28da34d9e922cca0bc740e, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

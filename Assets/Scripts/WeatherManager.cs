@@ -6,8 +6,42 @@ using UnityEngine.Networking;
 
 public class WeatherManager : MonoBehaviour
 {
-    public string City;
+    public string City; //input city
     private string jsonApi = "https://api.openweathermap.org/data/2.5/weather?q=Orlando,us&mode=json&appid=ce08e47134ca4d6c289ee7ab9d9c31e5";
+
+    [System.Serializable]
+    public class WeatherInfo
+    {
+        public Coord coord;
+        public Weather[] weather;
+        public Main main;
+        public long dt; //this is the time
+    }
+
+    [System.Serializable]
+    public class Coord
+    {
+        public float lon;
+        public float lat;
+    }
+
+    [System.Serializable]
+    public class Weather
+    {
+        public int id;
+        public string main;
+        public string description;
+        public string icon;
+    }
+
+    [System.Serializable]
+    public class Main
+    {
+        public float temp;
+        public int pressure;
+        public int humidity;
+    }
+
 
     private IEnumerator CallAPI(string url, Action<string> callback)
     {
@@ -42,5 +76,12 @@ public class WeatherManager : MonoBehaviour
     public void OnXMLDataLoaded(string data)
     {
         Debug.Log(data);
+        WeatherInfo weatherInfo = JsonUtility.FromJson<WeatherInfo>(data);
+
+        Debug.Log("Location: " + weatherInfo.coord.lat + ", " + weatherInfo.coord.lon);
+        Debug.Log("Temperature: " + weatherInfo.main.temp);
+        Debug.Log("Weather: " + weatherInfo.weather[0].main + " - " + weatherInfo.weather[0].description);
+        Debug.Log("Time: " + System.DateTimeOffset.FromUnixTimeSeconds(weatherInfo.dt).DateTime.ToString());
+        Debug.Log("Time: " + weatherInfo.dt);
     }
 }

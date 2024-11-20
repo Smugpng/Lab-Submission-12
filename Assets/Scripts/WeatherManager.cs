@@ -2,11 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.Networking;
 
 public class WeatherManager : MonoBehaviour
 {
     public string City; //input city
+    public Light sunLight;
+    public SkyboxManager skyboxManager;
     private string jsonApi = "https://api.openweathermap.org/data/2.5/weather?q=Orlando,us&mode=json&appid=ce08e47134ca4d6c289ee7ab9d9c31e5";
 
     [System.Serializable]
@@ -16,6 +19,7 @@ public class WeatherManager : MonoBehaviour
         public Weather[] weather;
         public Main main;
         public long dt; //this is the time
+        public long timezone;
     }
 
     [System.Serializable]
@@ -83,5 +87,35 @@ public class WeatherManager : MonoBehaviour
         Debug.Log("Weather: " + weatherInfo.weather[0].main + " - " + weatherInfo.weather[0].description);
         Debug.Log("Time: " + System.DateTimeOffset.FromUnixTimeSeconds(weatherInfo.dt).DateTime.ToString());
         Debug.Log("Time: " + weatherInfo.dt);
+
+        ChangeLight(weatherInfo);
+    }
+
+    public void ChangeLight(WeatherInfo weatherInfo) //based on weather
+    {
+        //switch cases look ugly you cant make me
+        if (weatherInfo.weather[0].main == "Clear")
+            sunLight.intensity = 2f;
+        else if (weatherInfo.weather[0].main == "Thunderstorm")
+            sunLight.intensity = .1f;
+        else if (weatherInfo.weather[0].main == "Drizzle")
+            sunLight.intensity = .9f;
+        else if (weatherInfo.weather[0].main == "Rain")
+            sunLight.intensity = .5f;
+        else if (weatherInfo.weather[0].main == "Snow")
+            sunLight.intensity = .5f;
+        else if (weatherInfo.weather[0].main == "Clouds")
+            sunLight.intensity = .75f;
+
+        Debug.Log("Time adjusted: " + System.DateTimeOffset.FromUnixTimeSeconds(weatherInfo.dt + weatherInfo.timezone).DateTime.ToString());
+        
+        ChangeSkyBox(weatherInfo);
+    }
+
+    public void ChangeSkyBox(WeatherInfo weatherInfo) //based on the time
+    {
+        //doubling down, I stand on business
+        long temp = 0;
+        temp = weatherInfo.dt;
     }
 }

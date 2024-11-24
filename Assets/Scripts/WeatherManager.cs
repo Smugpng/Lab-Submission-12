@@ -71,6 +71,7 @@ public class WeatherManager : MonoBehaviour
     {
         return CallAPI(jsonApi, callback);
     }
+
     public void Start()
     {
         string test  = ("https://api.openweathermap.org/data/2.5/weather?q=" + City + ",us&mode=json&appid=ce08e47134ca4d6c289ee7ab9d9c31e5");
